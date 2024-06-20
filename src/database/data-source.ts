@@ -1,7 +1,8 @@
 import "reflect-metadata"
 import 'dotenv/config'
 import { DataSource } from "typeorm"
-
+import { CreateUsersTable1718857614267 } from "./migrations/1718857614267-CreateUsersTable";
+import { CreatePsychsTable1718857656161 } from "./migrations/1718857656161-CreatePsychsTable";
 import User from "../app/entities/User";
 import Psych from "../app/entities/Psych";
 import 'dotenv/config'
@@ -18,7 +19,7 @@ export const AppDataSource = new DataSource({
     synchronize: true,
     logging: false,
     entities: [User, Psych],
-    migrations: [ ],
+    migrations: [CreateUsersTable1718857614267, CreatePsychsTable1718857656161],
     subscribers: [],
 })
 

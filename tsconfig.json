@@ -17,7 +17,8 @@
      "emitDecoratorMetadata": true, /* Enables experimental support for emitting type metadata for decorators. */
      /* Advanced Options */
      "skipLibCheck": true, /* Skip type checking of declaration files. */
-     "forceConsistentCasingInFileNames": true
+     "forceConsistentCasingInFileNames": true,
+     "typeRoots": ["./src/@types"]
     },
     "include": ["src/**/*"],
     "exclude": ["node_modules", "dist"],
