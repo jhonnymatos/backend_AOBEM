@@ -2,10 +2,12 @@ import { Request, Response } from 'express';
 import { psychRepository } from '../repositories/PsychRepository';
 import { BadRequestError } from '../helpers/api-errors';
 import bcrypt from 'bcrypt'
-
+import jwt from 'jsonwebtoken'
 export class PsychController {
 	async create(req: Request, res: Response) {
 		const { name, email, password, phone, crp, estado } = req.body
+
+		console.log(name, email, password, phone, crp, estado)
 
         const psychExists = await psychRepository.findOneBy({ email })
 
@@ -19,9 +21,9 @@ export class PsychController {
 			name,
 			email,
 			password: hashPassword,
-            phone,
-            crp,
-            estado
+         	phone,
+         	crp,
+         	estado
 		})
 
         await psychRepository.save(newPsych)
@@ -61,5 +63,4 @@ export class PsychController {
     async getProfile(req: Request, res: Response) {
 		return res.json(req.psych)
 	}
-
 }
