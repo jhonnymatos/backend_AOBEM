@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response  } from "express";
-import { BadRequestError, UnauthorizedError } from "../helpers/api-errors";
+import { UnauthorizedError } from "../helpers/api-errors";
 import { userRepository } from '../repositories/UserRepository';
 import jwt from 'jsonwebtoken'
 
