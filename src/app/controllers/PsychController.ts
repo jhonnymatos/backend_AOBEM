@@ -30,4 +30,36 @@ export class PsychController {
 
         return res.status(201).json(psych)
     }
+
+    async login(req: Request, res: Response) {
+		const { email, password } = req.body
+
+        const psych = await psychRepository.findOneBy({ email })
+
+        if (!psych) {
+			throw new BadRequestError('E-mail ou senha inválidos')
+		}
+
+        const verifyPass = await bcrypt.compare(password, psych.password)
+
+        if (!verifyPass) {
+			throw new BadRequestError('E-mail ou senha inválidos')
+		}
+
+        const token = jwt.sign({ id: psych.id }, process.env.JWT_PASS ?? '', {
+			expiresIn: '8h',
+		})
+        
+        const { password: _, ...psychLogin } = psych
+
+		return res.json({
+			psych: psychLogin,
+			token: token,
+		})
+    }
+
+    async getProfile(req: Request, res: Response) {
+		return res.json(req.psych)
+	}
+
 }
