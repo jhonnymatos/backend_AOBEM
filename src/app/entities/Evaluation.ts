@@ -6,6 +6,12 @@ export class Evaluation {
   id: number;
 
   @Column()
+  PsychName: string;
+
+  @Column()
+  UserName: string;
+
+  @Column()
   rating: number; 
 
   @Column()
@@ -13,9 +19,6 @@ export class Evaluation {
 
   @Column()
   createdAt: Date;
-
-  @Column()
-  updatedAt: Date;
 }
 
 /*import { Router } from 'express';

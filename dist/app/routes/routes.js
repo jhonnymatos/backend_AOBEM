@@ -1,0 +1,15 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const UserController_1 = require("../controllers/UserController");
+const PsychController_1 = require("../controllers/PsychController");
+const authMiddlewares_User_1 = require("../middlewares/authMiddlewares_User");
+const routes = (0, express_1.Router)();
+routes.post('/user', new UserController_1.UserController().create);
+routes.post('/userlogin', new UserController_1.UserController().login);
+routes.post('/psych', new PsychController_1.PsychController().create);
+routes.post('/psychlogin', new PsychController_1.PsychController().login);
+routes.use(authMiddlewares_User_1.authMiddleware);
+routes.get('/userprofile', new UserController_1.UserController().getProfile);
+routes.get('/psychprofile', new PsychController_1.PsychController().getProfile);
+exports.default = routes;

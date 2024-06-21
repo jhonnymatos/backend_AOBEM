@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { AppDataSource } from '../database/data-source';
+import { AppDataSource } from '../../database/data-source';
 import { Evaluation } from '../entities/Evaluation';
 
 const evaluationRepository = AppDataSource.getRepository(Evaluation);
@@ -28,7 +28,11 @@ export class EvaluationController {
   }
 
   async getEvaluationById(req: Request, res: Response) {
-    const id = req.params.id;
+    const id = +req.params.id;
+    if (!id || id <= 0) {
+      res.status(400).json({ message: 'ID inválido' });
+      return;
+    }
     try {
       const evaluation = await evaluationRepository.findOneBy({ id });
       if (!evaluation) {
@@ -42,7 +46,11 @@ export class EvaluationController {
   }
 
   async updateEvaluation(req: Request, res: Response) {
-    const id = req.params.id;
+    const id = +req.params.id;
+    if (!id || id <= 0) {
+      res.status(400).json({ message: 'ID inválido' });
+      return;
+    }
     const { rating, review } = req.body;
     try {
       const evaluation = await evaluationRepository.findOneBy({ id });
@@ -60,7 +68,11 @@ export class EvaluationController {
   }
 
   async deleteEvaluation(req: Request, res: Response) {
-    const id = req.params.id;
+    const id = +req.params.id;
+    if (!id || id <= 0) {
+      res.status(400).json({ message: 'ID inválido' });
+      return;
+    }
     try {
       await evaluationRepository.delete(id);
       res.json({ message: 'Avaliação deletada com sucesso' });
