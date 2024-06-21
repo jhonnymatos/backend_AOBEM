@@ -1,19 +1,35 @@
-import { Entity, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, CreateDateColumn } from 'typeorm';
+import User from './User';
+import Psych from './Psych';
 
-@Entity()
-    class Appointments {
-    
-    @Column({ type: 'text' })
-    name: string;
+@Entity('appointments')
+class Appointment {
+  @PrimaryGeneratedColumn()
+  id: number;
 
-    @Column({ type: 'text', unique: true })
-    email: string;
+  @Column()
+  name: string;
 
-    @Column('varchar', { length: 100, nullable: false })
-    phone: string;
+  @Column()
+  email: string;
 
-    @Column({ type: 'text' })
-    reason: string;
+  @Column()
+  phone: string;
+
+  @Column()
+  reason: string;
+
+  @CreateDateColumn()
+  createdAt: Date;
+
+  @Column({ default: false })
+  approved: boolean;
+
+  @ManyToOne(() => User, user => user.Appointments)
+  user: User;
+
+  @ManyToOne(() => Psych, psych => psych.Appointments)
+  psych: Psych;
 }
 
-export default Appointments;
+export default Appointment;

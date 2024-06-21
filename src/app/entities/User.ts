@@ -1,5 +1,6 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany, ManyToOne } from 'typeorm';
 import Evaluation from './Evaluation';
+import Appointment from './Appointment';
 
 @Entity('users')
 class User {
@@ -18,8 +19,8 @@ class User {
     @OneToMany(() => Evaluation, evaluation => evaluation.user)
    evaluations: Evaluation[];
 
-   @OneToMany(() => Evaluation, evaluation => evaluation.user)
-    evaluation: Evaluation[];
+    @ManyToOne(() => Appointment, appointment => appointment.user)
+    Appointments: Appointment[];
 }
 
 export default User;

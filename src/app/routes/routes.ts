@@ -6,6 +6,7 @@ import { psychPasswordController } from '../controllers/psychPasswordController'
 import { authMiddleware } from '../middlewares/authMiddlewares_User';
 import { EvaluationController } from '../controllers/EvaluationController';
 import { FormsController } from '../controllers/FormsController';
+import { AppointmentController } from '../controllers/AppointmentController';
 
 const routes = Router()
 
@@ -28,6 +29,11 @@ routes.post('/forms', new FormsController().createForm)
 routes.get('/forms', new FormsController().getForms)
 routes.get('/forms/:id', new FormsController().getFormById)
 routes.get('/forms/filter/:filter/:value', new FormsController().getFormsByFilter)
+
+routes.post('/appointment', new AppointmentController().create);
+routes.get('/appointment/:psychId', new AppointmentController().listByPsych);
+routes.patch('/appointment/:id/approve', new AppointmentController().approve);
+routes.delete('/appointment/:id/reject', new AppointmentController().reject);
 
 routes.use(authMiddleware)
 routes.get('/userprofile', new UserController().getProfile)

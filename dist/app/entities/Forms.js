@@ -9,7 +9,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Forms = void 0;
 const typeorm_1 = require("typeorm");
 let Forms = class Forms {
 };
@@ -38,7 +37,7 @@ __decorate([
     __metadata("design:type", String)
 ], Forms.prototype, "specialty", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ nullable: true }),
+    (0, typeorm_1.Column)({ type: 'text', nullable: true }),
     __metadata("design:type", Object)
 ], Forms.prototype, "specialty2", void 0);
 __decorate([
@@ -54,7 +53,7 @@ __decorate([
     __metadata("design:type", String)
 ], Forms.prototype, "service", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ nullable: true }),
+    (0, typeorm_1.Column)({ type: 'text', nullable: true }),
     __metadata("design:type", Object)
 ], Forms.prototype, "service2", void 0);
 __decorate([
@@ -68,4 +67,4 @@ __decorate([
 Forms = __decorate([
     (0, typeorm_1.Entity)()
 ], Forms);
-exports.Forms = Forms;
+exports.default = Forms;

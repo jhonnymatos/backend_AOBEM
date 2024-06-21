@@ -1,12 +1,14 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.FormsController = void 0;
 const data_source_1 = require("../../database/data-source");
-const Forms_1 = require("../entities/Forms");
-/*import { Like } from 'typeorm';*/
+const Forms_1 = __importDefault(require("../entities/Forms"));
 class FormsController {
     constructor() {
-        this.formsRepository = data_source_1.AppDataSource.getRepository(Forms_1.Forms);
+        this.formsRepository = data_source_1.AppDataSource.getRepository(Forms_1.default);
     }
     async createForm(req, res) {
         try {

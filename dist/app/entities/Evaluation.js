@@ -18,8 +18,7 @@ const Psych_1 = __importDefault(require("./Psych"));
 let Evaluation = class Evaluation {
 };
 __decorate([
-    (0, typeorm_1.PrimaryGeneratedColumn)() //tipar q nem os oto
-    ,
+    (0, typeorm_1.PrimaryGeneratedColumn)(),
     __metadata("design:type", Number)
 ], Evaluation.prototype, "id", void 0);
 __decorate([

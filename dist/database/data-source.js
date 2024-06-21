@@ -10,9 +10,11 @@ const typeorm_1 = require("typeorm");
 const _1718857614267_CreateUsersTable_1 = require("./migrations/1718857614267-CreateUsersTable");
 const _1718857656161_CreatePsychsTable_1 = require("./migrations/1718857656161-CreatePsychsTable");
 const _1718928082688_CreateEvaluationTable_1 = require("./migrations/1718928082688-CreateEvaluationTable");
+const _1718984828542_CreateFormsTable_1 = require("./migrations/1718984828542-CreateFormsTable");
 const User_1 = __importDefault(require("../app/entities/User"));
 const Psych_1 = __importDefault(require("../app/entities/Psych"));
 const Evaluation_1 = __importDefault(require("../app/entities/Evaluation"));
+const Forms_1 = __importDefault(require("../app/entities/Forms"));
 const port = process.env.DB_PORT;
 exports.AppDataSource = new typeorm_1.DataSource({
     type: 'postgres',
@@ -21,10 +23,10 @@ exports.AppDataSource = new typeorm_1.DataSource({
     username: process.env.DB_USER,
     password: process.env.DB_PASS,
     database: process.env.DB_NAME,
-    synchronize: true,
+    //synchronize: true,
     logging: false,
-    entities: [User_1.default, Psych_1.default, Evaluation_1.default],
-    migrations: [_1718857614267_CreateUsersTable_1.CreateUsersTable1718857614267, _1718857656161_CreatePsychsTable_1.CreatePsychsTable1718857656161, _1718928082688_CreateEvaluationTable_1.CreateEvaluationTable1718928082688],
+    entities: [User_1.default, Psych_1.default, Evaluation_1.default, Forms_1.default],
+    migrations: [_1718857614267_CreateUsersTable_1.CreateUsersTable1718857614267, _1718857656161_CreatePsychsTable_1.CreatePsychsTable1718857656161, _1718928082688_CreateEvaluationTable_1.CreateEvaluationTable1718928082688, _1718984828542_CreateFormsTable_1.CreateFormsTable1718984828542],
     subscribers: [],
 });
 //conectar com o bd: npm run dev:server

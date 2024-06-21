@@ -1,5 +1,6 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany, ManyToOne } from 'typeorm';
 import Evaluation from './Evaluation';
+import Appointment from './Appointment';
 
 @Entity('psychs')
 class Psych {
@@ -15,9 +16,6 @@ class Psych {
     @Column('varchar', { length: 100, nullable: false })
     password: string;
 
-    /*@Column('varchar', { length: 100, nullable: true })
-    confirmPassword: string;*/
-
     @Column('varchar', { length: 100, nullable: false })
     phone: string;
 
@@ -29,6 +27,9 @@ class Psych {
 
     @OneToMany(() => Evaluation, evaluation => evaluation.psych)
     evaluations: Evaluation[];
+
+    @ManyToOne(() => Appointment, appointment => appointment.psych)
+    Appointments: Appointment[];
 }
 
 export default Psych;
