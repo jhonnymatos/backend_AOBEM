@@ -1,7 +1,8 @@
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
  
 @Entity()
-export class Forms {
+class Forms {
+  
   @PrimaryGeneratedColumn()
   id: number;
  
@@ -20,7 +21,7 @@ export class Forms {
   @Column()
   specialty: string;
  
-  @Column({ nullable: true })
+  @Column({ type: 'text', nullable: true })
   specialty2: string | null;
  
   @Column()
@@ -32,7 +33,7 @@ export class Forms {
   @Column()
   service: string;
  
-  @Column({ nullable: true })
+  @Column({ type: 'text', nullable: true })
   service2: string | null;
  
   @Column()
@@ -41,3 +42,5 @@ export class Forms {
   @Column()
   fullBio: string;
 }
+
+export default Forms;

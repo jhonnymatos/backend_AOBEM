@@ -4,7 +4,7 @@ import Psych from './Psych';
 
 @Entity()
    class Evaluation {
-  @PrimaryGeneratedColumn()//tipar q nem os oto
+  @PrimaryGeneratedColumn()
   id: number;
 
   @Column()

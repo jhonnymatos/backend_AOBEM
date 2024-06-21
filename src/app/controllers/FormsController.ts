@@ -1,7 +1,6 @@
 import { Request, Response } from 'express';
 import { AppDataSource } from '../../database/data-source';
-import { Forms } from '../entities/Forms';
-/*import { Like } from 'typeorm';*/
+import Forms from '../entities/Forms';
 
 export class FormsController {
   private formsRepository = AppDataSource.getRepository(Forms);

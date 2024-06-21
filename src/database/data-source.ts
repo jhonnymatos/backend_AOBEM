@@ -4,11 +4,11 @@ import { DataSource } from "typeorm"
 import { CreateUsersTable1718857614267 } from "./migrations/1718857614267-CreateUsersTable";
 import { CreatePsychsTable1718857656161 } from "./migrations/1718857656161-CreatePsychsTable";
 import { CreateEvaluationTable1718928082688 } from "./migrations/1718928082688-CreateEvaluationTable";
+import { CreateFormsTable1718984828542 } from "./migrations/1718984828542-CreateFormsTable";
 import User from "../app/entities/User";
 import Psych from "../app/entities/Psych";
 import Evaluation  from "../app/entities/Evaluation";
-import { Forms } from "../app/entities/Forms";
-import { CreateFormsTable1718984828542 } from "./migrations/1718984828542-CreateFormsTable";
+import Forms from "../app/entities/Forms";
 
 const port = process.env.DB_PORT as number | undefined
 
@@ -19,7 +19,7 @@ export const AppDataSource = new DataSource({
 	username: process.env.DB_USER,
 	password: process.env.DB_PASS,
 	database: process.env.DB_NAME,
-    synchronize: true,
+    //synchronize: true,
     logging: false,
     entities:  [User, Psych, Evaluation, Forms],
     migrations: [CreateUsersTable1718857614267, CreatePsychsTable1718857656161, CreateEvaluationTable1718928082688, CreateFormsTable1718984828542 ],
