@@ -8,8 +8,12 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const typeorm_1 = require("typeorm");
+const Evaluation_1 = __importDefault(require("./Evaluation"));
 let User = class User {
 };
 __decorate([
@@ -28,6 +32,14 @@ __decorate([
     (0, typeorm_1.Column)({ type: 'text' }),
     __metadata("design:type", String)
 ], User.prototype, "password", void 0);
+__decorate([
+    (0, typeorm_1.OneToMany)(() => Evaluation_1.default, evaluation => evaluation.user),
+    __metadata("design:type", Array)
+], User.prototype, "evaluations", void 0);
+__decorate([
+    (0, typeorm_1.OneToMany)(() => Evaluation_1.default, evaluation => evaluation.user),
+    __metadata("design:type", Array)
+], User.prototype, "evaluation", void 0);
 User = __decorate([
     (0, typeorm_1.Entity)('users')
 ], User);

@@ -1,86 +1,42 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.EvaluationController = void 0;
-const data_source_1 = require("../../database/data-source");
-const Evaluation_1 = require("../entities/Evaluation");
-const evaluationRepository = data_source_1.AppDataSource.getRepository(Evaluation_1.Evaluation);
+const UserRepository_1 = require("../repositories/UserRepository");
+const PsychRepository_1 = require("../repositories/PsychRepository");
+const EvaluationRepository_1 = require("../repositories/EvaluationRepository");
 class EvaluationController {
-    async createEvaluation(req, res) {
-        const { rating, review } = req.body;
-        const evaluation = new Evaluation_1.Evaluation();
-        evaluation.rating = rating;
-        evaluation.review = review;
+    async create(req, res) {
+        const { rating, review, psychId, userId } = req.body;
         try {
-            await evaluationRepository.save(evaluation);
-            res.status(201).json({ message: 'Avaliação criada com sucesso' });
+            const user = await UserRepository_1.userRepository.findOneBy({ id: Number(userId) });
+            const psych = await PsychRepository_1.psychRepository.findOneBy({ id: Number(psychId) });
+            if (!user) {
+                return res.status(404).json({ message: 'Usuário não encontrado' });
+            }
+            if (!psych) {
+                return res.status(404).json({ message: 'Psicólogo não encontrado' });
+            }
+            const newEvaluation = EvaluationRepository_1.evaluationRepository.create({ rating, review, user, psych });
+            await EvaluationRepository_1.evaluationRepository.save(newEvaluation);
+            return res.status(201).json(newEvaluation);
         }
         catch (error) {
-            res.status(500).json({ message: 'Erro ao criar avaliação' });
+            console.log(error);
+            return res.status(500).json({ message: 'Erro interno do servidor' });
         }
     }
-    async getEvaluations(req, res) {
+    async list(req, res) {
+        const { psychId } = req.params;
         try {
-            const evaluations = await evaluationRepository.find();
-            res.json(evaluations);
+            const evaluations = await EvaluationRepository_1.evaluationRepository.find({
+                where: { psych: { id: Number(psychId) } },
+                relations: ['user', 'psych'],
+            });
+            return res.json(evaluations);
         }
         catch (error) {
-            res.status(500).json({ message: 'Erro ao buscar avaliações' });
-        }
-    }
-    async getEvaluationById(req, res) {
-        const id = +req.params.id;
-        if (!id || id <= 0) {
-            res.status(400).json({ message: 'ID inválido' });
-            return;
-        }
-        try {
-            const evaluation = await evaluationRepository.findOneBy({ id });
-            if (!evaluation) {
-                res.status(404).json({ message: 'Avaliação não encontrada' });
-            }
-            else {
-                res.json(evaluation);
-            }
-        }
-        catch (error) {
-            res.status(500).json({ message: 'Erro ao buscar avaliação' });
-        }
-    }
-    async updateEvaluation(req, res) {
-        const id = +req.params.id;
-        if (!id || id <= 0) {
-            res.status(400).json({ message: 'ID inválido' });
-            return;
-        }
-        const { rating, review } = req.body;
-        try {
-            const evaluation = await evaluationRepository.findOneBy({ id });
-            if (!evaluation) {
-                res.status(404).json({ message: 'Avaliação não encontrada' });
-            }
-            else {
-                evaluation.rating = rating;
-                evaluation.review = review;
-                await evaluationRepository.save(evaluation);
-                res.json({ message: 'Avaliação atualizada com sucesso' });
-            }
-        }
-        catch (error) {
-            res.status(500).json({ message: 'Erro ao atualizar avaliação' });
-        }
-    }
-    async deleteEvaluation(req, res) {
-        const id = +req.params.id;
-        if (!id || id <= 0) {
-            res.status(400).json({ message: 'ID inválido' });
-            return;
-        }
-        try {
-            await evaluationRepository.delete(id);
-            res.json({ message: 'Avaliação deletada com sucesso' });
-        }
-        catch (error) {
-            res.status(500).json({ message: 'Erro ao deletar avaliação' });
+            console.log(error);
+            return res.status(500).json({ message: 'Erro interno do servidor' });
         }
     }
 }

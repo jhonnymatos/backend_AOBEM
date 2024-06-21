@@ -30,13 +30,13 @@ class CreateUsersTable1718857614267 {
                     type: 'varchar',
                     length: '100',
                     isNullable: false
-                },
-                {
+                }
+                /*{
                     name: 'confirmPassword',
                     type: 'varchar',
                     length: '100',
                     isNullable: false
-                }
+                }*/
             ]
         }));
     }

@@ -8,9 +8,13 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Evaluation = void 0;
 const typeorm_1 = require("typeorm");
+const User_1 = __importDefault(require("./User"));
+const Psych_1 = __importDefault(require("./Psych"));
 let Evaluation = class Evaluation {
 };
 __decorate([
@@ -20,28 +24,28 @@ __decorate([
 ], Evaluation.prototype, "id", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
-    __metadata("design:type", String)
-], Evaluation.prototype, "PsychName", void 0);
-__decorate([
-    (0, typeorm_1.Column)(),
-    __metadata("design:type", String)
-], Evaluation.prototype, "UserName", void 0);
-__decorate([
-    (0, typeorm_1.Column)(),
     __metadata("design:type", Number)
 ], Evaluation.prototype, "rating", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
+    (0, typeorm_1.Column)({ type: 'text', nullable: true }),
     __metadata("design:type", String)
 ], Evaluation.prototype, "review", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
+    (0, typeorm_1.Column)({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' }),
     __metadata("design:type", Date)
 ], Evaluation.prototype, "createdAt", void 0);
+__decorate([
+    (0, typeorm_1.ManyToOne)(() => User_1.default, user => user.evaluations),
+    __metadata("design:type", User_1.default)
+], Evaluation.prototype, "user", void 0);
+__decorate([
+    (0, typeorm_1.ManyToOne)(() => Psych_1.default, psych => psych.evaluations),
+    __metadata("design:type", Psych_1.default)
+], Evaluation.prototype, "psych", void 0);
 Evaluation = __decorate([
     (0, typeorm_1.Entity)()
 ], Evaluation);
-exports.Evaluation = Evaluation;
+exports.default = Evaluation;
 /*import { Router } from 'express';
 import { EvaluationController } from './evaluation.controller';
 

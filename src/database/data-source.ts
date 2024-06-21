@@ -7,6 +7,8 @@ import { CreateEvaluationTable1718928082688 } from "./migrations/1718928082688-C
 import User from "../app/entities/User";
 import Psych from "../app/entities/Psych";
 import Evaluation  from "../app/entities/Evaluation";
+import { Forms } from "../app/entities/Forms";
+import { CreateFormsTable1718984828542 } from "./migrations/1718984828542-CreateFormsTable";
 
 const port = process.env.DB_PORT as number | undefined
 
@@ -19,8 +21,8 @@ export const AppDataSource = new DataSource({
 	database: process.env.DB_NAME,
     synchronize: true,
     logging: false,
-    entities:  [User, Psych, Evaluation],
-    migrations: [CreateUsersTable1718857614267, CreatePsychsTable1718857656161, CreateEvaluationTable1718928082688 ],
+    entities:  [User, Psych, Evaluation, Forms],
+    migrations: [CreateUsersTable1718857614267, CreatePsychsTable1718857656161, CreateEvaluationTable1718928082688, CreateFormsTable1718984828542 ],
     subscribers: [],
 })
 
