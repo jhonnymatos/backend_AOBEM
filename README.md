@@ -9,6 +9,7 @@ Steps to run this project:
    npm install
    npm install express cors express-async-errors pg cors
    npm install @types/express @types/cors ts-node-dev -D
+   npm run typeorm migration:create src/database/migrations/CreateUsersTable
    npm run typeorm -- -d ./src/database/data-source.ts migration:run
    npm run dev
    npm install bcrypt
