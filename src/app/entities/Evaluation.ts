@@ -1,25 +1,29 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne  } from 'typeorm';
+import User from './User';
+import Psych from './Psych';
 
 @Entity()
-export class Evaluation {
+   class Evaluation {
   @PrimaryGeneratedColumn()//tipar q nem os oto
   id: number;
 
   @Column()
-  PsychName: string;
-
-  @Column()
-  UserName: string;
-
-  @Column()
   rating: number; 
 
-  @Column()
+  @Column({ type: 'text', nullable: true })
   review: string;
 
-  @Column()
+  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   createdAt: Date;
+
+  @ManyToOne(() => User, user => user.evaluations)
+  user: User;
+
+  @ManyToOne(() => Psych, psych => psych.evaluations)
+  psych: Psych;
 }
+
+export default Evaluation;
 
 /*import { Router } from 'express';
 import { EvaluationController } from './evaluation.controller';

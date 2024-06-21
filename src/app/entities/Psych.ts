@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn  } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import Evaluation from './Evaluation';
 
 @Entity('psychs')
 class Psych {
@@ -25,6 +26,9 @@ class Psych {
 
     @Column('varchar', { length: 100, nullable: false })
     estado: string;
+
+    @OneToMany(() => Evaluation, evaluation => evaluation.psych)
+    evaluations: Evaluation[];
 }
 
 export default Psych;

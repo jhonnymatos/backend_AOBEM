@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn  } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import Evaluation from './Evaluation';
 
 @Entity('users')
 class User {
@@ -14,8 +15,11 @@ class User {
     @Column({ type: 'text' })
     password: string;
 
-    /*@Column('varchar', { length: 100, nullable: true })
-    confirmPassword: string;*/
+    @OneToMany(() => Evaluation, evaluation => evaluation.user)
+   evaluations: Evaluation[];
+
+   @OneToMany(() => Evaluation, evaluation => evaluation.user)
+    evaluation: Evaluation[];
 }
 
 export default User;
